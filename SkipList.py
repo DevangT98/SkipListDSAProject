@@ -25,8 +25,8 @@ class SkipList(OrderedDictionary):
     count = 0
 
     def __init__(self):
-        self.head = Node(SkipList.negative_inf, SkipList.negative_inf)
-        self.tail = Node(SkipList.positive_inf, SkipList.positive_inf)
+        self.head = Node(SkipList.negative_inf, None)
+        self.tail = Node(SkipList.positive_inf, None)
         self.head.next = self.tail
         self.tail.prev = self.head
 
@@ -100,8 +100,8 @@ class SkipList(OrderedDictionary):
             self.add_empty_level()
 
     def add_empty_level(self):
-        new_head = Node(SkipList.negative_inf, SkipList.negative_inf)
-        new_tail = Node(SkipList.positive_inf, SkipList.positive_inf)
+        new_head = Node(SkipList.negative_inf, None)
+        new_tail = Node(SkipList.positive_inf, None)
 
         new_head.next = new_tail
         new_head.below = self.head
@@ -121,8 +121,6 @@ class SkipList(OrderedDictionary):
             p = p.below
             while p.next.key <= k:
                 p = p.next
-                print(p.key, p.value)
-
         return p
 
     def closestKeyAfter(self, k):
@@ -174,16 +172,14 @@ class SkipList(OrderedDictionary):
         level = self.height
         ordered_dict = OrderedDict()
         while highest_level is not None:
-            output += "\n" + f"Level[{str(level)}] "
+            output += "\n" + f"Level[{str(level)}] :"
 
             while start is not None:
                 output += " " + str(start.key) + " " + str(start.value)
                 if start.next is not None:
-                    output += " : "
+                    output += " --> "
 
                 start = start.next
-                # if level == 0:
-                # self.count += 1
             highest_level = highest_level.below
             start = highest_level
             level -= 1

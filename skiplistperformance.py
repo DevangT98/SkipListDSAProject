@@ -1,4 +1,4 @@
-from SkipList1 import SkipList
+from SkipList import SkipList
 import time
 import numpy as np
 import random
