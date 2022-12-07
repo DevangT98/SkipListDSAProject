@@ -22,7 +22,7 @@ class SkipList(OrderedDictionary):
     positive_inf = float('inf')
 
     height = 0
-    level = -1
+    count = 0
 
     def __init__(self):
         self.head = Node(SkipList.negative_inf, SkipList.negative_inf)
@@ -32,42 +32,39 @@ class SkipList(OrderedDictionary):
 
     def insertElement(self, k, v):
         p = self.findElement(k)
-        print(p.key, p.value)
-
+        # print(p.key, p.value)
+        level = -1
         if p.key == k:
             old_val = p.value
             p.value = v
 
             return old_val
 
-        else:
-            while True:
-                res = bool(random.getrandbits(1))
-                self.level += 1
-                self.increase_level(self.level)
-                q = p
-                print(q.key, q.value)
-                while p.above is None:
-                    p = p.prev
-                print(f"TYPE OF P after while inside insertElement {type(p)}")
-                p = p.above
-                print(
-                    f"value and type of p after p=p.above  {p.key}, {p.value},{type(p)}")
-                q = self.insert_after_above(p, q, k, v)
-                print(f"q after insert above values: {q.key},{q.value}")
-                if not res:
-                    break
+        self.count += 1
+        while True:
+            res = bool(random.getrandbits(1))
+            level += 1
+            # self.count += 1
+            self.increase_level(level)
+            q = p
+            while p.above is None:
+                p = p.prev
+                # print(f"TYPE OF P after while inside insertElement {type(p)}")
+            p = p.above
+            # print(f"value and type of p after p=p.above  {p.key}, {p.value},{type(p)}")
+            q = self.insert_after_above(p, q, k, v)
+            # print(f"q after insert above values: {q.key},{q.value}")
+            if not res:
+                break
 
         return None
 
     def insert_after_above(self, p, q, k, v):
         new_node = Node(k, v)
-        print(
-            f"New node inside insert after above method key = {new_node.key}, value = {new_node.value}, VALUE OF P = {p}")
+       # print(f"New node inside insert after above method key = {new_node.key}, value = {new_node.value}, VALUE OF P = {p}")
         node_before_new_node = p.below.below
 
-        print(
-            f"Node before new node value inside insert after above: {node_before_new_node}\n")
+        # print(f"Node before new node value inside insert after above: {node_before_new_node}\n")
 
         self.set_before_and_after_references(q, new_node)
         self.set_above_and_below_references(
@@ -99,6 +96,7 @@ class SkipList(OrderedDictionary):
     def increase_level(self, level):
         if level >= self.height:
             self.height += 1
+
             self.add_empty_level()
 
     def add_empty_level(self):
@@ -123,6 +121,7 @@ class SkipList(OrderedDictionary):
             p = p.below
             while p.next.key <= k:
                 p = p.next
+                print(p.key, p.value)
 
         return p
 
@@ -135,6 +134,8 @@ class SkipList(OrderedDictionary):
 
     def closestKeyBefore(self, k):
         node = self.findElement(k)
+        print(
+            f"Closest key before - find element returned: {node.key}, {node.value}")
         if node is None or node.prev.key == SkipList.negative_inf:
             return None
         else:
@@ -155,6 +156,7 @@ class SkipList(OrderedDictionary):
                 node = node.above
             else:
                 break
+        self.count -= 1
         return node
 
     def remove_references(self, node):
@@ -175,12 +177,17 @@ class SkipList(OrderedDictionary):
             output += "\n" + f"Level[{str(level)}] "
 
             while start is not None:
-                output += " " + str(start.key) + " - " + str(start.value)
+                output += " " + str(start.key) + " " + str(start.value)
                 if start.next is not None:
                     output += " : "
 
                 start = start.next
+                # if level == 0:
+                # self.count += 1
             highest_level = highest_level.below
             start = highest_level
             level -= 1
         print(output)
+
+    def size(self):
+        print(f"\nThe number of keys in the SkipList are: {self.count}\n")

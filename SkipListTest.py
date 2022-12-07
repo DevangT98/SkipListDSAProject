@@ -3,7 +3,7 @@
    Date created: 11/8/2022
 '''
 from OrderedDictionary import OrderedDictionary, DictionaryException
-from SkipList import SkipList
+from SkipList1 import SkipList
 
 
 def getOption():
@@ -37,14 +37,14 @@ def testIntKeyIntValues(dict):
             key = int(input('Enter integer key to be removed: '))
             try:
                 val = dict.removeElement(key)
-                print('Value for key removed = {}'.format(val))
+                print('Value for key removed = {}'.format(val.value))
             except DictionaryException:
                 print('Key {} does not exist'.format(key))
         elif option == 3:
             # find operation
             key = int(input('Enter integer key to look up: '))
             val = dict.findElement(key)
-            if val == None:
+            if val.value == None or val.value == SkipList.negative_inf or val.value == SkipList.positive_inf:
                 print('Key {} not found'.format(key))
             else:
                 print('Value for key {} = {}'.format(key, val.value))
@@ -60,7 +60,8 @@ def testIntKeyIntValues(dict):
             # closestKeyBefore operation
             key = int(input('Enter integer key to look up: '))
             key1 = dict.closestKeyBefore(key)
-            if key1 == None:
+            print(f"Value of key1 retuned after closest key before : {key1}")
+            if key1.value == None:
                 print('Given key {} is below the smallest in the dictionary'.format(key))
             else:
                 print('Closest key before key {} = {}'.format(key, key1.key))
@@ -68,6 +69,7 @@ def testIntKeyIntValues(dict):
             # exit
             quit()
         dict.display()
+        dict.size()
 
 
 testIntKeyIntValues(SkipList())
