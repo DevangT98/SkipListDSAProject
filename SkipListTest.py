@@ -3,7 +3,7 @@
    Date created: 11/8/2022
 '''
 from OrderedDictionary import OrderedDictionary, DictionaryException
-from SkipList1 import SkipList
+from SkipList import SkipList
 
 
 def getOption():
