@@ -3,7 +3,7 @@
    Date created: 11/8/2022
 '''
 from OrderedDictionary import OrderedDictionary, DictionaryException
-from SkipList import SkipList
+from SkipList1 import SkipList
 
 
 def getOption():
@@ -60,8 +60,8 @@ def testIntKeyIntValues(dict):
             # closestKeyBefore operation
             key = int(input('Enter integer key to look up: '))
             key1 = dict.closestKeyBefore(key)
-            print(f"Value of key1 retuned after closest key before : {key1}")
-            if key1.value == None:
+           # print(f"Value of key1 retuned after closest key before : {key1}")
+            if key1.key == None or key1.key == SkipList.negative_inf:
                 print('Given key {} is below the smallest in the dictionary'.format(key))
             else:
                 print('Closest key before key {} = {}'.format(key, key1.key))
