@@ -61,10 +61,10 @@ def testIntKeyIntValues(dict):
             key = int(input('Enter integer key to look up: '))
             key1 = dict.closestKeyBefore(key)
            # print(f"Value of key1 retuned after closest key before : {key1}")
-            if key1.key == None or key1.key == SkipList.negative_inf:
+            if key1 == None or key1 == SkipList.negative_inf:
                 print('Given key {} is below the smallest in the dictionary'.format(key))
             else:
-                print('Closest key before key {} = {}'.format(key, key1.key))
+                print('Closest key before key {} = {}'.format(key, key1))
         elif option == 7:
             # exit
             quit()

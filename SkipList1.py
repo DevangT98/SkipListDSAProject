@@ -125,19 +125,22 @@ class SkipList(OrderedDictionary):
 
     def closestKeyAfter(self, k):
         node = self.findElement(k)
-        if node is None or node.next.key == SkipList.positive_inf:
+        if node.key == k:
+            return node
+        elif node is None or node.next.key == SkipList.positive_inf:
             return None
         else:
             return self.findElement(node.next.key)
 
     def closestKeyBefore(self, k):
         node = self.findElement(k)
-        print(
-            f"Closest key before - find element returned: {node.key}, {node.value}")
-        if node is None or node.prev.key == SkipList.negative_inf:
-            return node.prev
+        if node.key == k:
+            return node.key
+        elif node.value is None:
+            return None
         else:
-            return self.findElement(node.prev.key)
+            prev_node = self.findElement(node.prev.key)
+            return prev_node
 
     def removeElement(self, k):
         node = self.findElement(k)
