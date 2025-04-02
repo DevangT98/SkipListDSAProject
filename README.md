@@ -1,4 +1,4 @@
-Prerequisites:
+## Prerequisite:
 
 • For easy evaluation, VSCode or PyCharm IDE is suggested. 
 
@@ -6,11 +6,11 @@ Prerequisites:
 
 • To install NumPy -> pip install numpy
 
-To evaluate implementation : 
+## To evaluate implementation : 
 • Open SkipListTest.py file and run it.
 
 
-To evaluate performance :
+## To evaluate performance :
 
 • Open performanceAnalyzer.py file and run it. It would run for around 5-7 mins and will 
 output performance numbers.
